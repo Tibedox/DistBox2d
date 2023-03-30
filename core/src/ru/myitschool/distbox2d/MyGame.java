@@ -18,6 +18,7 @@ public class MyGame extends Game {
 	Box2DDebugRenderer debugRenderer;
 	Texture img;
 	StaticBody floor;
+	DynamicBody ball, ball2;
 	
 	@Override
 	public void create () {
@@ -29,6 +30,8 @@ public class MyGame extends Game {
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 		img = new Texture("badlogic.jpg");
 		floor = new StaticBody(world, WIDTH/2, 1, 14, 0.5f);
+		ball = new DynamicBody(world, WIDTH/2, HEIGHT-1, 0.5f);
+		ball2 = new DynamicBody(world, WIDTH/2+0.01f, HEIGHT+1, 0.5f);
 	}
 
 	@Override
