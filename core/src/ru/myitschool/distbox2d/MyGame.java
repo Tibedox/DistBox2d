@@ -37,7 +37,7 @@ public class MyGame extends Game {
 		wall0 = new StaticBody(world, 0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		wall1 = new StaticBody(world, WIDTH-0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		for (int i = 0; i < 50; i++) {
-			ball.add(new DynamicBody(world, WIDTH/2+MathUtils.random(-0.1f, 0.1f), HEIGHT+i*2, 0.5f));
+			ball.add(new DynamicBody(world, WIDTH/2+MathUtils.random(-0.1f, 0.1f), HEIGHT+i*2, MathUtils.random(0.2f, 0.5f)));
 		}
 	}
 
@@ -45,11 +45,14 @@ public class MyGame extends Game {
 	public void render () {
 		ScreenUtils.clear(0.3f, 0, 0, 1);
 		debugRenderer.render(world, camera.combined);
-		/*camera.update();
+		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(img, 0, 0, 3, 3);
-		batch.end();*/
+		for (int i = 0; i < ball.size(); i++) {
+			float z = ball.get(i).r;
+			batch.draw(img, ball.get(i).body.getPosition().x-z/2, ball.get(i).body.getPosition().y-z/2, z, z);
+		}
+		batch.end();
 		world.step(1/60f, 6, 2);
 	}
 	
