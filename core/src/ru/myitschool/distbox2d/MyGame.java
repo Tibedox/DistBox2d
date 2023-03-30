@@ -17,6 +17,7 @@ public class MyGame extends Game {
 	World world;
 	Box2DDebugRenderer debugRenderer;
 	Texture img;
+	StaticBody floor;
 	
 	@Override
 	public void create () {
@@ -27,17 +28,18 @@ public class MyGame extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 		img = new Texture("badlogic.jpg");
+		floor = new StaticBody(world, WIDTH/2, 1, 14, 0.5f);
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
+		ScreenUtils.clear(0.3f, 0, 0, 1);
 		debugRenderer.render(world, camera.combined);
-		camera.update();
+		/*camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(img, 0, 0, 3, 3);
-		batch.end();
+		batch.end();*/
 		world.step(1/60f, 6, 2);
 	}
 	
