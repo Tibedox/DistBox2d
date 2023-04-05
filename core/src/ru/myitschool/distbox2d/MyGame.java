@@ -41,7 +41,7 @@ public class MyGame extends Game {
 		floor = new StaticBody(world, WIDTH/2, 1, WIDTH, 0.5f);
 		wall0 = new StaticBody(world, 0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		wall1 = new StaticBody(world, WIDTH-0.5f, HEIGHT/2, 0.5f, HEIGHT);
-		brick = new KinematicBody(world, WIDTH/2, HEIGHT/2, 2, 1);
+		brick = new KinematicBody(world, WIDTH/2, HEIGHT/4, 2, 1);
 		for (int i = 0; i < 55; i++) {
 			ball.add(new DynamicBody(world, WIDTH/2+MathUtils.random(-0.1f, 0.1f), HEIGHT+i*2, MathUtils.random(0.2f, 0.5f)));
 		}
@@ -49,11 +49,17 @@ public class MyGame extends Game {
 
 	@Override
 	public void render () {
+		// обработка касаний
 		if(Gdx.input.isTouched()) {
 			touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touch);
-			brick.move(touch.x, touch.y);
+			//brick.move(touch.x, touch.y);
 		}
+
+		// события
+		brick.move();
+
+		// отрисовка
 		ScreenUtils.clear(0.3f, 0, 0, 1);
 		debugRenderer.render(world, camera.combined);
 		/*camera.update();
