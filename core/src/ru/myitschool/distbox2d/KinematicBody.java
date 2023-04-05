@@ -30,4 +30,8 @@ public class KinematicBody {
         body.createFixture(fixtureDef);
         box.dispose();
     }
+
+    void move(float tx, float ty) {
+        body.setTransform(tx, ty, 0);
+    }
 }

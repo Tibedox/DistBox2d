@@ -30,5 +30,7 @@ public class DynamicBody {
 
         Fixture fixture = body.createFixture(fixtureDef);
         circle.dispose();
+
+        body.setAngularDamping(0.2f);
     }
 }
