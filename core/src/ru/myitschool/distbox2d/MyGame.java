@@ -23,11 +23,12 @@ public class MyGame extends Game {
 	StaticBody floor;
 	StaticBody wall0, wall1;
 	ArrayList<DynamicBody> ball = new ArrayList<>();
+	KinematicBody brick;
 	
 	@Override
 	public void create () {
 		Box2D.init();
-		world = new World(new Vector2(0, -10), true);
+		world = new World(new Vector2(0, -9.8f), true);
 		debugRenderer = new Box2DDebugRenderer();
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
@@ -36,6 +37,7 @@ public class MyGame extends Game {
 		floor = new StaticBody(world, WIDTH/2, 1, WIDTH, 0.5f);
 		wall0 = new StaticBody(world, 0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		wall1 = new StaticBody(world, WIDTH-0.5f, HEIGHT/2, 0.5f, HEIGHT);
+		brick = new KinematicBody(world, WIDTH/2, HEIGHT/2, 1, 0.5f);
 		for (int i = 0; i < 50; i++) {
 			ball.add(new DynamicBody(world, WIDTH/2+MathUtils.random(-0.1f, 0.1f), HEIGHT+i*2, MathUtils.random(0.2f, 0.5f)));
 		}
@@ -45,14 +47,14 @@ public class MyGame extends Game {
 	public void render () {
 		ScreenUtils.clear(0.3f, 0, 0, 1);
 		debugRenderer.render(world, camera.combined);
-		camera.update();
+		/*camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		for (int i = 0; i < ball.size(); i++) {
 			float z = ball.get(i).r;
 			batch.draw(img, ball.get(i).body.getPosition().x-z/2, ball.get(i).body.getPosition().y-z/2, z, z);
 		}
-		batch.end();
+		batch.end();*/
 		world.step(1/60f, 6, 2);
 	}
 	
