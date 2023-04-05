@@ -12,9 +12,13 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class KinematicBody {
     Body body;
-    float vx = 1;
+    float vx = 2;
+    float width, height;
 
     KinematicBody(World world, float x, float y, float width, float height) {
+        this.width = width;
+        this.height = height;
+
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
         bodyDef.position.set(x, y);
@@ -33,6 +37,7 @@ public class KinematicBody {
         body.createFixture(fixtureDef);
         box.dispose();
         body.setLinearVelocity(vx, 0);
+        body.setAngularVelocity(-1);
     }
 
     void move() {
@@ -44,5 +49,15 @@ public class KinematicBody {
 
     void touchMove(float tx, float ty) {
         body.setTransform(tx, ty, 0);
+    }
+
+    float getX() {
+        return body.getPosition().x - width/2;
+    }
+    float getY() {
+        return body.getPosition().y - height/2;
+    }
+    float getAngle() {
+        return (float) Math.toDegrees(body.getAngle());
     }
 }

@@ -33,4 +33,14 @@ public class DynamicBody {
 
         body.setAngularDamping(0.2f);
     }
+
+    float getX() {
+        return body.getPosition().x - r;
+    }
+    float getY() {
+        return body.getPosition().y - r;
+    }
+    float getAngle() {
+        return (float) Math.toDegrees(body.getAngle());
+    }
 }

@@ -22,7 +22,7 @@ public class MyGame extends Game {
 	Vector3 touch;
 	World world;
 	Box2DDebugRenderer debugRenderer;
-	Texture img;
+	Texture imgColob, imgBrick;
 	StaticBody floor;
 	StaticBody wall0, wall1;
 	ArrayList<DynamicBody> ball = new ArrayList<>();
@@ -37,12 +37,15 @@ public class MyGame extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 		touch = new Vector3();
-		img = new Texture("badlogic.jpg");
+
+		imgColob = new Texture("colob.png");
+		imgBrick = new Texture("brick.png");
+
 		floor = new StaticBody(world, WIDTH/2, 1, WIDTH, 0.5f);
 		wall0 = new StaticBody(world, 0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		wall1 = new StaticBody(world, WIDTH-0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		brick = new KinematicBody(world, WIDTH/2, HEIGHT/4, 2, 1);
-		for (int i = 0; i < 55; i++) {
+		for (int i = 0; i < 100; i++) {
 			ball.add(new DynamicBody(world, WIDTH/2+MathUtils.random(-0.1f, 0.1f), HEIGHT+i*2, MathUtils.random(0.2f, 0.5f)));
 		}
 	}
@@ -62,20 +65,24 @@ public class MyGame extends Game {
 		// отрисовка
 		ScreenUtils.clear(0.3f, 0, 0, 1);
 		debugRenderer.render(world, camera.combined);
-		/*camera.update();
+		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		batch.draw(imgBrick, brick.getX(), brick.getY(),
+				brick.width/2, brick.height/2, brick.width, brick.height, 1, 1,
+				brick.getAngle(), 0, 0, 400, 200, false, false);
 		for (int i = 0; i < ball.size(); i++) {
-			float z = ball.get(i).r;
-			batch.draw(img, ball.get(i).body.getPosition().x-z/2, ball.get(i).body.getPosition().y-z/2, z, z);
+			batch.draw(imgColob, ball.get(i).getX(), ball.get(i).getY(),
+					ball.get(i).r, ball.get(i).r, ball.get(i).r*2, ball.get(i).r*2, 1, 1,
+					ball.get(i).getAngle(), 0, 0, 400, 400, false, false);
 		}
-		batch.end();*/
+		batch.end();
 		world.step(1/60f, 6, 2);
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+		imgBrick.dispose();
 	}
 }
