@@ -2,6 +2,7 @@ package ru.myitschool.distbox2d;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,6 +28,7 @@ public class MyGame extends Game {
 	StaticBody wall0, wall1;
 	ArrayList<DynamicBody> ball = new ArrayList<>();
 	KinematicBody brick;
+	DynamicBody sonic;
 	
 	@Override
 	public void create () {
@@ -48,6 +50,7 @@ public class MyGame extends Game {
 		for (int i = 0; i < 10; i++) {
 			ball.add(new DynamicBody(world, WIDTH/2+MathUtils.random(-0.1f, 0.1f), HEIGHT+i*2, MathUtils.random(0.2f, 0.5f)));
 		}
+		sonic = new DynamicBody(world, 1, 2, 0.8f);
 	}
 
 	@Override
@@ -64,6 +67,7 @@ public class MyGame extends Game {
 				}
 			}
 		}
+		touchSonic();
 
 		// события
 		//brick.move();
@@ -90,5 +94,19 @@ public class MyGame extends Game {
 	public void dispose () {
 		batch.dispose();
 		imgBrick.dispose();
+	}
+
+	void touchSonic() {
+		Vector2 vel = this.sonic.body.getLinearVelocity();
+		Vector2 pos = this.sonic.body.getPosition();
+		float MAX_VELOCITY = 10f;
+
+		if (Gdx.input.isKeyPressed(Input.Keys.A) && vel.x > -MAX_VELOCITY) {
+			this.sonic.body.applyLinearImpulse(-0.80f, 0, pos.x, pos.y, true);
+		}
+
+		if (Gdx.input.isKeyPressed(Input.Keys.D) && vel.x < MAX_VELOCITY) {
+			this.sonic.body.applyLinearImpulse(0.80f, 0, pos.x, pos.y, true);
+		}
 	}
 }
