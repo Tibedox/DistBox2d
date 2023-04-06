@@ -48,6 +48,9 @@ public class DynamicBody {
         return body.getPosition();
     }
     boolean hit(float tx, float ty) {
+        if(Math.pow(tx-body.getPosition().x, 2) + Math.pow(ty-body.getPosition().y, 2) < r*r){
+            body.applyLinearImpulse(new Vector2(0, 0.5f), body.getPosition(), true);
+        }
         return Math.pow(tx-body.getPosition().x, 2) + Math.pow(ty-body.getPosition().y, 2) < r*r;
     }
 }

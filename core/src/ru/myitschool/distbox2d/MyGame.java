@@ -12,6 +12,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
+import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class MyGame extends Game {
 	ArrayList<DynamicBody> ball = new ArrayList<>();
 	KinematicBody brick;
 	DynamicBody sonic;
+	DynamicBody ball0, ball1;
 	
 	@Override
 	public void create () {
@@ -47,10 +50,18 @@ public class MyGame extends Game {
 		wall0 = new StaticBody(world, 0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		wall1 = new StaticBody(world, WIDTH-0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		brick = new KinematicBody(world, WIDTH/2, HEIGHT/4, 2, 1);
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 1; i++) {
 			ball.add(new DynamicBody(world, WIDTH/2+MathUtils.random(-0.1f, 0.1f), HEIGHT+i*2, MathUtils.random(0.2f, 0.5f)));
 		}
-		sonic = new DynamicBody(world, 1, 2, 0.8f);
+		//sonic = new DynamicBody(world, 1, 2, 0.8f);
+		ball0 = new DynamicBody(world, 1, 2, 0.5f);
+		ball1 = new DynamicBody(world, 3, 2, 0.5f);
+
+		DistanceJointDef defJoint = new DistanceJointDef ();
+		defJoint.length = 0;
+		defJoint.initialize(ball0.body, ball1.body, ball0.body.getPosition(), ball1.body.getPosition());
+
+		DistanceJoint joint = (DistanceJoint) world.createJoint(defJoint);
 	}
 
 	@Override
@@ -62,12 +73,14 @@ public class MyGame extends Game {
 			//brick.move(touch.x, touch.y);
 			for (int i = 0; i < ball.size(); i++) {
 				if(ball.get(i).hit(touch.x, touch.y)) {
-					Vector2 pos = new Vector2(touch.x - ball.get(i).getPos().x, touch.y - ball.get(i).getPos().y);
-					ball.get(i).body.applyLinearImpulse(new Vector2(0, 2f), pos, true);
+					//Vector2 pos = new Vector2(touch.x - ball.get(i).getPos().x, touch.y - ball.get(i).getPos().y);
+					//ball.get(i).body.applyLinearImpulse(new Vector2(0, 2f), pos, true);
 				}
 			}
+			ball0.hit(touch.x, touch.y);
+			ball1.hit(touch.x, touch.y);
 		}
-		touchSonic();
+		//touchSonic();
 
 		// события
 		//brick.move();
