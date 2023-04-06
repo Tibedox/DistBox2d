@@ -43,4 +43,8 @@ public class DynamicBody {
     float getAngle() {
         return (float) Math.toDegrees(body.getAngle());
     }
+    boolean hit(float tx, float ty) {
+        return Math.pow(tx-body.getPosition().x, 2) + Math.pow(ty-body.getPosition().y, 2) < r*r;
+
+    }
 }

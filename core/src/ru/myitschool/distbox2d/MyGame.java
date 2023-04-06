@@ -57,15 +57,20 @@ public class MyGame extends Game {
 			touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touch);
 			//brick.move(touch.x, touch.y);
+			for (int i = 0; i < ball.size(); i++) {
+				if(ball.get(i).hit(touch.x, touch.y)) {
+					ball.get(i).body.applyForceToCenter(0, 20f, true);
+				}
+			}
 		}
 
 		// события
-		brick.move();
+		//brick.move();
 
 		// отрисовка
 		ScreenUtils.clear(0.3f, 0, 0, 1);
 		debugRenderer.render(world, camera.combined);
-		camera.update();
+		/*camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(imgBrick, brick.getX(), brick.getY(),
@@ -76,7 +81,7 @@ public class MyGame extends Game {
 					ball.get(i).r, ball.get(i).r, ball.get(i).r*2, ball.get(i).r*2, 1, 1,
 					ball.get(i).getAngle(), 0, 0, 400, 400, false, false);
 		}
-		batch.end();
+		batch.end();*/
 		world.step(1/60f, 6, 2);
 	}
 	
