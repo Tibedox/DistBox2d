@@ -1,5 +1,6 @@
 package ru.myitschool.distbox2d;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -25,7 +26,7 @@ public class DynamicBody {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
         fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.4f;
+        fixtureDef.friction = 2.4f;
         fixtureDef.restitution = 0.8f;
 
         Fixture fixture = body.createFixture(fixtureDef);
@@ -43,8 +44,10 @@ public class DynamicBody {
     float getAngle() {
         return (float) Math.toDegrees(body.getAngle());
     }
+    Vector2 getPos() {
+        return body.getPosition();
+    }
     boolean hit(float tx, float ty) {
         return Math.pow(tx-body.getPosition().x, 2) + Math.pow(ty-body.getPosition().y, 2) < r*r;
-
     }
 }

@@ -59,7 +59,8 @@ public class MyGame extends Game {
 			//brick.move(touch.x, touch.y);
 			for (int i = 0; i < ball.size(); i++) {
 				if(ball.get(i).hit(touch.x, touch.y)) {
-					ball.get(i).body.applyForceToCenter(0, 20f, true);
+					Vector2 pos = new Vector2(touch.x - ball.get(i).getPos().x, touch.y - ball.get(i).getPos().y);
+					ball.get(i).body.applyForce(new Vector2(0, 20f), pos, true);
 				}
 			}
 		}
