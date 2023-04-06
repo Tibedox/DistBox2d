@@ -27,7 +27,7 @@ public class DynamicBody {
         fixtureDef.shape = circle;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 2.4f;
-        fixtureDef.restitution = 0.8f;
+        fixtureDef.restitution = 0.5f;
 
         Fixture fixture = body.createFixture(fixtureDef);
         circle.dispose();

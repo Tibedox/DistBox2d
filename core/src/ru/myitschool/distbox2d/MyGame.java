@@ -45,7 +45,7 @@ public class MyGame extends Game {
 		wall0 = new StaticBody(world, 0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		wall1 = new StaticBody(world, WIDTH-0.5f, HEIGHT/2, 0.5f, HEIGHT);
 		brick = new KinematicBody(world, WIDTH/2, HEIGHT/4, 2, 1);
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			ball.add(new DynamicBody(world, WIDTH/2+MathUtils.random(-0.1f, 0.1f), HEIGHT+i*2, MathUtils.random(0.2f, 0.5f)));
 		}
 	}
@@ -60,7 +60,7 @@ public class MyGame extends Game {
 			for (int i = 0; i < ball.size(); i++) {
 				if(ball.get(i).hit(touch.x, touch.y)) {
 					Vector2 pos = new Vector2(touch.x - ball.get(i).getPos().x, touch.y - ball.get(i).getPos().y);
-					ball.get(i).body.applyForce(new Vector2(0, 20f), pos, true);
+					ball.get(i).body.applyLinearImpulse(new Vector2(0, 2f), pos, true);
 				}
 			}
 		}
