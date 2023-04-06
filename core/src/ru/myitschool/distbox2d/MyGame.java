@@ -102,11 +102,11 @@ public class MyGame extends Game {
 		float MAX_VELOCITY = 10f;
 
 		if (Gdx.input.isKeyPressed(Input.Keys.A) && vel.x > -MAX_VELOCITY) {
-			this.sonic.body.applyLinearImpulse(-0.80f, 0, pos.x, pos.y, true);
+			this.sonic.body.applyLinearImpulse(-0.80f, 0, pos.x, pos.y+0.1f, true);
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.D) && vel.x < MAX_VELOCITY) {
-			this.sonic.body.applyLinearImpulse(0.80f, 0, pos.x, pos.y, true);
+			this.sonic.body.applyLinearImpulse(0.80f, 0, pos.x, pos.y+0.1f, true);
 		}
 	}
 }
